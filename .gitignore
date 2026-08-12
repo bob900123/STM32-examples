@@ -1,0 +1,14 @@
+# VS Code
+.vscode/
+
+# EIDE / CMSIS cache
+.cmsis/
+
+# Build outputs
+build/
+Objects/
+Listings/
+
+# Keil user-specific
+*.uvguix.*
+*.uvguix.user
