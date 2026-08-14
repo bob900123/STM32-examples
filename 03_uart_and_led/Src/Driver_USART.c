@@ -26,11 +26,8 @@ void Driver_USART_Init()
 
     USART1->CR1 |= USART_CR1_UE;
 
-    /* 4.1 配置优先级组 */
     NVIC_SetPriorityGrouping(3);
-    /* 4.2 设置优先级 */
     NVIC_SetPriority(USART1_IRQn, 2);
-    /* 4.3 使能串口1的中断 */
     NVIC_EnableIRQ(USART1_IRQn);
 }
 
