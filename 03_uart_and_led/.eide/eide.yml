@@ -24,7 +24,9 @@ virtualFolder:
         - path: Src/Driver_USART.c
       folders: []
     - name: Inc
-      files: []
+      files:
+        - path: Inc/Driver_LED.h
+        - path: Inc/Driver_USART.h
       folders: []
 dependenceList: []
 outDir: build
@@ -67,7 +69,7 @@ targets:
             warnings: all-warnings
           global:
             output-debug-info: enable
-            use-microLIB: false
+            use-microLIB: true
           linker:
             $disableOutputTask: false
             $outputTaskExcludes:
