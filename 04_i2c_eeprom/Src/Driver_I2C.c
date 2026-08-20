@@ -15,11 +15,8 @@ void Driver_I2C_Init(void)
 
     // I2C
     I2C2->CR2 |= 36 << 0;
-    I2C2->CR2 |= I2C_CR2_ITBUFEN;
-
     I2C2->CCR |= 180 << 0;
     I2C2->TRISE |= 37;
-
     I2C2->CR1 |= I2C_CR1_PE;
 }
 
