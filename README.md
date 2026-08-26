@@ -12,4 +12,5 @@ STM32 微控制器習與實作範例，使用 STM32F103C8T6 與 Keil MDK ARM 開
 | 03 | UART and LED | 使用 UART 控制 LED 開關 |
 | 04 | I2C EEPROM | 使用 I2C 控制 EEPROM 寫入和讀取 |
 | 05 | LED Blink 2 | 使用 SysTick Timer LED 產生時間基準，使 LED 有規律的循環閃爍 |
+| 06 | Breathing LED | 使用 Timer PWM 使 LED 呈現漸亮、漸暗的呼吸燈效果 |
 
