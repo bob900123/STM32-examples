@@ -424,6 +424,21 @@
               <FileType>1</FileType>
               <FilePath>.\Src\main.c</FilePath>
             </File>
+            <File>
+              <FileName>Com_Utils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\Com_Utils.c</FilePath>
+            </File>
+            <File>
+              <FileName>Driver_LED.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\Driver_LED.c</FilePath>
+            </File>
+            <File>
+              <FileName>Driver_Timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Src\Driver_Timer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

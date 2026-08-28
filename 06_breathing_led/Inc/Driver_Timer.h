@@ -3,7 +3,8 @@
 
 #include "stm32f10x.h"
 
+extern uint8_t RCR_VALUE;
+
 void Driver_Timer_Init();
-void Driver_Timer_CC1Value(uint16_t value);
 
 #endif /* __DRIVER_TIMER_H__ */

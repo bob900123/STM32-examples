@@ -6,6 +6,5 @@
 #define LED GPIO_ODR_ODR6
 
 void Driver_LED_Init();
-void Driver_LED_Brightness(uint8_t brightness);
 
 #endif /* __DRIVER_LED_H__ */

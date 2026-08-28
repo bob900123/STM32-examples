@@ -21,15 +21,15 @@ int main(void)
 
     while (1)
     {
-        for (int8_t i = 0; i < 100; i++)
-        {
-            Driver_LED_Brightness(i);
-            Com_DelayMs(50);
-        }
-        for (int8_t i = 99; i > -1; i--)
-        {
-            Driver_LED_Brightness(i);
-            Com_DelayMs(50);
-        }
+        // for (int8_t i = 0; i < 100; i++)
+        // {
+        //     Driver_LED_Brightness(i);
+        //     Com_DelayMs(50);
+        // }
+        // for (int8_t i = 99; i > -1; i--)
+        // {
+        //     Driver_LED_Brightness(i);
+        //     Com_DelayMs(50);
+        // }
     }
 }
