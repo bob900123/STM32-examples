@@ -45,6 +45,7 @@
 再將 ADC 換算後的電壓透過 UART 傳送至電腦。
 
 電壓換算公式為：
+
 $$
 V_{IN} = \frac{ADC_{DR}}{4095} \times V_{REF}
 $$
