@@ -15,4 +15,5 @@ STM32 微控制器習與實作範例，使用 STM32F103C8T6 與 Keil MDK ARM 開
 | 06 | Breathing LED | 使用 Timer PWM 使 LED 呈現漸亮、漸暗的呼吸燈效果 |
 | 07 | UART and LED 2 | 使用 UART 控制 LED 開關，UART TX 與 RX 均使用 DMA 進行資料傳輸 |
 | 08 | ADC | 使用 ADC 測量電位器產生的類比電壓 |
+| 09 | SPI W25Q32 | 使用 SPI 控制 W25Q32 Flash Memory 寫入和讀取 |
 
