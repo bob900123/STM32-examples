@@ -3,9 +3,6 @@
 
 #include "stm32f10x.h"
 
-#define OK      1
-#define FAIL    0
-
 #define CS_HIGH (GPIOB->ODR |= GPIO_ODR_ODR0)
 #define CS_LOW  (GPIOB->ODR &= ~GPIO_ODR_ODR0)
 
