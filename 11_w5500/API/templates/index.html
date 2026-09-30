@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>W5500 Control</title>
+
+    <link rel="stylesheet" href="./static/output.css" />
+
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #f5f7fa;
+        font-family: Arial, "Microsoft JhengHei", sans-serif;
+        color: #1f2937;
+      }
+
+      .page {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 80px;
+      }
+
+      .panel {
+        width: 520px;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 18px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+      }
+
+      .header {
+        padding: 28px 32px 22px;
+        border-bottom: 1px solid #eeeeee;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 700;
+      }
+
+      .header p {
+        margin: 6px 0 0;
+        font-size: 14px;
+        color: #9ca3af;
+      }
+
+      .content {
+        padding: 30px 32px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+      }
+
+      .row + .row {
+        border-top: 1px solid #f0f0f0;
+      }
+
+      .label {
+        font-size: 17px;
+        font-weight: 600;
+      }
+
+      .description {
+        margin-top: 4px;
+        font-size: 13px;
+        color: #9ca3af;
+      }
+
+      .connection {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .status-wrapper {
+        display: grid;
+        grid-template-areas: "status";
+      }
+
+      .status-wrapper > div {
+        grid-area: status;
+      }
+
+      .status {
+        width: 14px;
+        height: 14px;
+      }
+
+      #t {
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .connected {
+        color: #16a34a;
+      }
+
+      .disconnected {
+        color: #dc2626;
+      }
+
+      .footer {
+        padding: 16px 32px;
+        background: #fafafa;
+        border-top: 1px solid #eeeeee;
+        font-size: 12px;
+        color: #9ca3af;
+        text-align: center;
+      }
+
+      @media (max-width: 600px) {
+        .page {
+          padding: 20px;
+          align-items: flex-start;
+        }
+
+        .panel {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body data-theme="light">
+    <div class="page">
+      <div class="panel">
+        <div class="header">
+          <h1>W5500 控制</h1>
+          <p>Ethernet Device Control Panel</p>
+        </div>
+
+        <div class="content">
+          <!-- 連線狀態 -->
+          <div class="row">
+            <div>
+              <div class="label">裝置狀態</div>
+              <div class="description">W5500 Ethernet connection</div>
+            </div>
+
+            <div class="connection">
+              <div class="status-wrapper">
+                <div
+                  id="status1"
+                  class="status status-error animate-ping"
+                ></div>
+
+                <div id="status2" class="status status-error"></div>
+              </div>
+
+              <div id="t" class="disconnected">Disconnected</div>
+            </div>
+          </div>
+
+          <!-- LED -->
+          <div class="row">
+            <div>
+              <div class="label">LED</div>
+              <div class="description">Control LED</div>
+            </div>
+
+            <input id="led" type="checkbox" class="toggle toggle-primary" />
+          </div>
+        </div>
+
+        <div class="footer">W5500 Device Controller</div>
+      </div>
+    </div>
+
+    <script>
+      function get_status() {
+        fetch("/current")
+          .then((response) => response.json())
+          .then((data) => {
+            const status1 = document.querySelector("#status1");
+
+            const status2 = document.querySelector("#status2");
+
+            const text = document.querySelector("#t");
+
+            if (data.success === true) {
+              status1.classList.remove("status-error");
+              status1.classList.add("status-success");
+
+              status2.classList.remove("status-error");
+              status2.classList.add("status-success");
+
+              text.textContent = "Connected";
+
+              text.classList.remove("disconnected");
+              text.classList.add("connected");
+            } else {
+              status1.classList.remove("status-success");
+              status1.classList.add("status-error");
+
+              status2.classList.remove("status-success");
+              status2.classList.add("status-error");
+
+              text.textContent = "Disconnected";
+
+              text.classList.remove("connected");
+              text.classList.add("disconnected");
+            }
+          })
+          .catch(() => {
+            document.querySelector("#t").textContent = "Server Error";
+          });
+      }
+      get_status();
+      setInterval(get_status, 1000);
+
+      /* LED 控制 */
+      document.querySelector("#led").addEventListener("change", function () {
+        const message = this.checked ? "on" : "off";
+
+        fetch("/send", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message: message,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+          });
+      });
+    </script>
+  </body>
+</html>
