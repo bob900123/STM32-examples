@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ESP8266</title>
+
+    <script src="https://cdn.plot.ly/plotly-3.1.0.min.js"></script>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: Arial, "Microsoft JhengHei", sans-serif;
+        background: #f3f4f6;
+        color: #1f2937;
+        min-height: 100vh;
+      }
+
+      .page {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 40px 20px;
+      }
+
+      .panel {
+        width: 100%;
+        max-width: 900px;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      }
+
+      .header {
+        padding: 28px 32px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .header h1 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .header p {
+        color: #6b7280;
+        font-size: 14px;
+      }
+
+      .content {
+        padding: 0 32px 30px;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 0;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .label {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .description {
+        font-size: 13px;
+        color: #9ca3af;
+      }
+
+      .connection {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .status-wrapper {
+        position: relative;
+        width: 12px;
+        height: 12px;
+      }
+
+      .status {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+
+      .status-success {
+        background: #22c55e;
+      }
+
+      .status-error {
+        background: #ef4444;
+      }
+
+      .animate-ping {
+        animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+      }
+
+      @keyframes ping {
+        75%,
+        100% {
+          transform: scale(2);
+          opacity: 0;
+        }
+      }
+
+      .connected {
+        color: #16a34a;
+        font-weight: 600;
+      }
+
+      .disconnected {
+        color: #dc2626;
+        font-weight: 600;
+      }
+
+      #current-value {
+        font-size: 26px;
+        font-weight: 700;
+        font-family: monospace;
+      }
+
+      .chart-section {
+        padding-top: 24px;
+      }
+
+      #chart {
+        width: 100%;
+        height: 350px;
+        margin-top: 15px;
+      }
+
+      .footer {
+        text-align: center;
+        padding: 18px;
+        border-top: 1px solid #e5e7eb;
+        color: #9ca3af;
+        font-size: 13px;
+      }
+
+      /* Mobile */
+
+      @media (max-width: 600px) {
+        .page {
+          padding: 0;
+        }
+
+        .panel {
+          border-radius: 0;
+          min-height: 100vh;
+        }
+
+        .header {
+          padding: 24px 20px;
+        }
+
+        .content {
+          padding: 0 20px 24px;
+        }
+
+        .row {
+          padding: 20px 0;
+        }
+
+        #chart {
+          height: 300px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="panel">
+
+        <div class="header">
+          <h1>ESP8266</h1>
+          <p>Wi-Fi Device Control Panel</p>
+        </div>
+
+        <div class="content">
+          <div class="row">
+            <div>
+              <div class="label">裝置狀態</div>
+              <div class="description">ESP8266 Connection</div>
+            </div>
+
+            <div class="connection">
+              <div class="status-wrapper">
+                <div
+                  id="status1"
+                  class="status status-error animate-ping"
+                ></div>
+                <div id="status2" class="status status-error"></div>
+              </div>
+
+              <div id="t" class="disconnected">Disconnected</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <div class="label">即時數值</div>
+              <div class="description">ADC Value</div>
+            </div>
+            <div id="current-value">--</div>
+          </div>
+
+          <div class="chart-section">
+            <div class="label">ADC 即時折線圖</div>
+            <div class="description">Latest 30 data points</div>
+            <div id="chart"></div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+
+        <div class="footer">ESP8266</div>
+      </div>
+    </div>
+
+    <script>
+      let lastDataTime = 0;
+
+      Plotly.newPlot(
+        "chart",
+        [
+          {
+            x: [],
+            y: [],
+            type: "scatter",
+            mode: "lines+markers",
+            name: "ADC",
+          },
+        ],
+        {
+          margin: { l: 50, r: 20, t: 30, b: 50 },
+          xaxis: { title: "Time" },
+          yaxis: { title: "Value" },
+          showlegend: false,
+        },
+        {
+          responsive: true,
+          displayModeBar: false,
+        },
+      );
+
+      function setConnected() {
+        const status1 = document.getElementById("status1");
+        const status2 = document.getElementById("status2");
+        const text = document.getElementById("t");
+
+        status1.classList.remove("status-error");
+        status2.classList.remove("status-error");
+
+        status1.classList.add("status-success");
+        status2.classList.add("status-success");
+
+        text.classList.remove("disconnected");
+        text.classList.add("connected");
+
+        text.textContent = "Connected";
+      }
+
+      function setDisconnected() {
+        const status1 = document.getElementById("status1");
+        const status2 = document.getElementById("status2");
+        const text = document.getElementById("t");
+
+        status1.classList.remove("status-success");
+        status2.classList.remove("status-success");
+
+        status1.classList.add("status-error");
+        status2.classList.add("status-error");
+
+        text.classList.remove("connected");
+        text.classList.add("disconnected");
+
+        text.textContent = "Disconnected";
+      }
+
+      async function get_value() {
+        try {
+          const response = await fetch("/value", {
+            cache: "no-store",
+          });
+
+          if (!response.ok) {
+            throw new Error("HTTP Error");
+          }
+
+          const data = await response.json();
+
+          console.log("Receive:", data);
+
+          const now = Date.now() / 1000;
+          const diff = now - Number(data.time);
+
+          if (diff > 2) {
+            setDisconnected();
+            return;
+          }
+
+          setConnected();
+
+          const value = Number(data.value);
+
+          document.getElementById("current-value").textContent =
+            value.toFixed(3);
+
+          if (Number(data.time) === lastDataTime) {
+            return;
+          }
+
+          lastDataTime = Number(data.time);
+
+          const date = new Date(Number(data.time) * 1000);
+          Plotly.extendTraces(
+            "chart",
+            {
+              x: [[date]],
+              y: [[value]],
+            },
+            [0],
+            30,
+          );
+        } catch (error) {
+          console.error("Server Error:", error);
+
+          setDisconnected();
+        }
+      }
+
+      get_value();
+
+      setInterval(get_value, 800);
+    </script>
+  </body>
+</html>
