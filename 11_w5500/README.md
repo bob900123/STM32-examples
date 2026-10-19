@@ -4,7 +4,7 @@
 
 ## 硬體需求
 
-* STM32F103C8T6 微控制器 x2
+* STM32F103C8T6 微控制器 x1
 * W5500 Ethernet 模組 ×1
 * ST-Link 燒錄器 ×1
 * LED ×1
