@@ -21,3 +21,4 @@ STM32 微控制器習與實作範例，使用 STM32F103C8T6 與 Keil MDK ARM 開
 | 12 | ESP8266 | 使用無線網路和 TCP 傳送數據，控制電位器的電壓 |
 | 13 | CC2541 BLE | 使用 bluetooth 傳送數據，控制 LED 開關 |
 | 14 | SX1262 | 使用 LoRa 傳送數據，控制 LED 的亮度 |
+| 15 | Power Control | 使用 STM32 的電源管理功能，讓微控制器進入不同的低功耗模式 |
