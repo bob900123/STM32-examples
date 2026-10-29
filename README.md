@@ -22,3 +22,4 @@ STM32 微控制器習與實作範例，使用 STM32F103C8T6 與 Keil MDK ARM 開
 | 13 | CC2541 BLE | 使用 bluetooth 傳送數據，控制 LED 開關 |
 | 14 | SX1262 | 使用 LoRa 傳送數據，控制 LED 的亮度 |
 | 15 | Power Control | 使用 STM32 的電源管理功能，讓微控制器進入不同的低功耗模式 |
+| 16 | Backup Data | 使用 STM32 的備份功能，保留使用者的資料 |
