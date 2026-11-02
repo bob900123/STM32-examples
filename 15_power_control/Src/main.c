@@ -48,7 +48,6 @@ void enter_stop_mode(void)
 }
 
 void enter_standby_mode(void)
-
 {
     // 使用 PA0 上升緣喚醒
     RCC->APB1ENR |= RCC_APB1ENR_PWREN;
