@@ -52,14 +52,14 @@ UART TX 與 RX 均使用 DMA 進行資料傳輸，以減少 CPU 在 UART 資料�
 
 ## 功能介紹
 
-* UART TX/RX DMA
+* **UART TX/RX DMA**
 
     UART 資料傳送和接收都使用 DMA
 
-* UART 接收中斷
+* **UART 接收中斷**
 
     當 UART 接收到空閒訊號時進入中斷服務程式，讀取接收到的字元並進行命令解析
 
-* 命令解析
+* **命令解析**
 
     接收命令後，比對字串內容，控制 LED

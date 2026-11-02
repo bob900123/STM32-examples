@@ -49,18 +49,18 @@
 
 ## 功能介紹
 
-* Wi-Fi 網路通訊
+* **Wi-Fi 網路通訊**
 
     ESP8266 連線至 Wi-Fi，透過 TCP 與 FastAPI 進行通訊
 
-* FastAPI Server
+* **FastAPI Server**
 
     負責接收 ESP8266 傳送的電壓資料，並提供 Web Server、HTML 頁面及 REST API
 
-* ADC 電壓讀取
+* **ADC 電壓讀取**
 
     使用 ADC 讀取電位器輸出的類比訊號，並將 ADC 數值轉換成電壓
 
-* 即時折線圖
+* **即時折線圖**
 
     網頁使用 Plotly.js 繪製折線圖，每秒加入最新的電壓資料，即時顯示電位器電壓的變化

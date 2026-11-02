@@ -33,11 +33,11 @@
 
 ## 功能介紹
 
-* Advanced Timer PWM 輸出
+* **Advanced Timer PWM 輸出**
 
     使用 Advanced Timer 的 PWM 功能產生固定頻率的 PWM 訊號，並透過 Timer Channel 輸出至 LED
 
-* PWM Duty Cycle 控制
+* **PWM Duty Cycle 控制**
 
     透過修改 CCR 的值改變 PWM Duty Cycle，進而控制 LED 的亮度
 

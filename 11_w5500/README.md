@@ -52,18 +52,18 @@
 
 ## 功能介紹
 
-* W5500 Ethernet 通訊
+* **W5500 Ethernet 通訊**
 
     STM32 透過 SPI 介面控制 W5500，使用 W5500 的硬體 TCP/IP 功能進行 Ethernet 網路通訊
 
-* TCP 長連線
+* **TCP 長連線**
 
     W5500 與電腦端 TCP Server 保持 TCP Connection，使 Web Server 可以隨時將控制命令傳送至 STM32
 
-* FastAPI Web Server
+* **FastAPI Web Server**
 
     電腦端使用 FastAPI 建立 Web Server，提供 Web 控制介面與 API，同時與 W5500 保持連線
 
-* LED 控制
+* **LED 控制**
 
     STM32 接收到 W5500 傳來的 TCP 資料後解析控制命令，並透過 GPIO 控制 LED

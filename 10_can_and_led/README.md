@@ -36,18 +36,18 @@
 
 ## 功能介紹
 
-* CAN 資料傳送
+* **CAN 資料傳送**
 
     透過 STM32 的 CAN 控制器建立 CAN Message，並透過 CAN Transceiver 將資料傳送至 CAN Bus
 
-* CAN 資料接收
+* **CAN 資料接收**
 
     接收來自 CAN Bus 的 CAN Message，並取得 Data Field，根據接收到的資料執行對應操作
 
-* 按鈕控制
+* **按鈕控制**
 
     使用 GPIO 讀取按鈕狀態。按下按鈕後，由傳送端 STM32 發送指定的 CAN Message
 
-* LED 控制
+* **LED 控制**
 
     接收端 STM32 根據接收到的 CAN Message 控制 LED，例如切換 LED 的亮滅狀態

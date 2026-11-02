@@ -33,11 +33,11 @@
 
 ## 功能介紹
 
-* SysTick Timer 時間基準
+* **SysTick Timer 時間基準**
 
     使用 SysTick Timer 產生固定的系統時間基準，提供延遲函式所需的計時功能
 
-* LED 延遲控制
+* **LED 延遲控制**
 
     透過延遲函式設定 LED 的亮滅時間，實現固定週期的 LED 閃爍效果
 

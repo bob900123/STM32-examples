@@ -49,22 +49,22 @@
 
 ## 功能介紹
 
-* USART 資料接收
+* **USART 資料接收**
 
     透過 USART 接收電腦端傳送的資料
 
-* EEPROM 資料寫入
+* **EEPROM 資料寫入**
 
     將 USART 接收到的資料透過 I2C 寫入 AT24C02 EEPROM
 
-* EEPROM 資料讀取
+* **EEPROM 資料讀取**
 
     透過 I2C 從 AT24C02 EEPROM 讀取已儲存的資料
 
-* USART 資料回傳
+* **USART 資料回傳**
 
   將 EEPROM 讀取的資料透過 USART 傳送至電腦端，方便確認寫入與讀取結果
 
-* I2C 通訊控制
+* **I2C 通訊控制**
 
   實作 Start、Stop、ACK、NACK、位址傳送及資料收發等基本 I2C 操作

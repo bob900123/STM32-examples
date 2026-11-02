@@ -48,18 +48,18 @@
 
 ## 功能介紹
 
-* USART 資料收發
+* **USART 資料收發**
 
     透過 USART 接收電腦端傳送的資料，並將從 W25Q32 讀取的資料透過 USART 回傳至電腦端
 
-* Flash 資料讀寫
+* **Flash 資料讀寫**
 
     透過 SPI 將 USART 接收到的資料寫入 W25Q32 Flash Memory，並支援從 W25Q32 讀取已儲存的資料
 
-* SPI 通訊控制
+* **SPI 通訊控制**
 
     實作 CS 控制、SPI 指令傳送及資料收發等基本 SPI 操作，完成 STM32F103C8T6 與 W25Q32 之間的通訊
 
-* W25Q32 Flash 控制
+* **W25Q32 Flash 控制**
 
     實作 W25Q32 基本操作，包括 Write Enable、Page Program、Read Data、Sector Erase 及 Status Register 讀取等功能

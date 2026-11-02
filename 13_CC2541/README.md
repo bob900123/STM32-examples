@@ -49,18 +49,18 @@ LED 控制命令：
 
 ## 功能介紹
 
-* BLE 無線通訊
+* **BLE 無線通訊**
 
     CC2541 透過 BLE 與手機建立無線連線，接收手機傳送的 LED 控制指令，並回傳 LED 狀態
 
-* UART 資料傳輸
+* **UART 資料傳輸**
 
     STM32 透過 USART 與 CC2541 進行雙向資料交換，接收手機指令並傳送 LED 狀態資訊
 
-* LED Toggle 控制
+* **LED Toggle 控制**
 
     STM32 接收到 LED 指令後，透過 GPIO 切換對應 LED 的輸出狀態
 
-* 手機即時監測
+* **手機即時監測**
 
     使用者可透過 BLE Scanner 的 Notify 功能接收 LED 狀態資訊，無須額外架設 Web Server 或連接 Wi-Fi
