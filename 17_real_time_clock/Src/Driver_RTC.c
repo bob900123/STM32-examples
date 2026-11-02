@@ -4,7 +4,8 @@
 
 void Driver_RTC_Init(void)
 {
-    RCC->APB1ENR |= RCC_APB1ENR_PWREN | RCC_APB1ENR_BKPEN;
+    RCC->APB1ENR |= RCC_APB1ENR_PWREN;
+    RCC->APB1ENR |= RCC_APB1ENR_BKPEN;
     PWR->CR |= PWR_CR_DBP;
 
     // 啟動 LSE
@@ -12,7 +13,8 @@ void Driver_RTC_Init(void)
     while (!(RCC->BDCR & RCC_BDCR_LSERDY))
         ;
 
-    RCC->BDCR = (RCC->BDCR & ~RCC_BDCR_RTCSEL) | RCC_BDCR_RTCSEL_LSE;
+    RCC->BDCR &= ~RCC_BDCR_RTCSEL;
+    RCC->BDCR |= RCC_BDCR_RTCSEL_LSE;
     RCC->BDCR |= RCC_BDCR_RTCEN;
 
     RTC->CRL &= ~RTC_CRL_RSF;
@@ -27,6 +29,8 @@ void Driver_RTC_Init(void)
     RTC->CRL &= ~RTC_CRL_CNF;
     while (!(RTC->CRL & RTC_CRL_RTOFF))
         ;
+
+    PWR->CR &= ~PWR_CR_DBP;
 }
 
 void Driver_RTC_SetTime(uint32_t time)
@@ -42,6 +46,7 @@ void Driver_RTC_SetTime(uint32_t time)
     RTC->CRL &= ~RTC_CRL_CNF;
     while (!(RTC->CRL & RTC_CRL_RTOFF))
         ;
+    PWR->CR &= ~PWR_CR_DBP;
 }
 
 uint32_t Driver_RTC_GetTime()
@@ -52,8 +57,8 @@ uint32_t Driver_RTC_GetTime()
 
 void Driver_RTC_SetAlarm(uint32_t time)
 {
-    RCC->APB1ENR |= RCC_APB1ENR_PWREN | RCC_APB1ENR_BKPEN;
-    RCC->BDCR |= RCC_BDCR_RTCEN;
+    RCC->APB1ENR |= RCC_APB1ENR_PWREN;
+    RCC->APB1ENR |= RCC_APB1ENR_BKPEN;
     PWR->CR |= PWR_CR_DBP;
 
     RTC->CRL &= ~RTC_CRL_RSF;
@@ -69,4 +74,6 @@ void Driver_RTC_SetAlarm(uint32_t time)
 
     while (!(RTC->CRL & RTC_CRL_RTOFF))
         ;
+
+    PWR->CR &= ~PWR_CR_DBP;
 }

@@ -2,8 +2,6 @@
 #define __DRIVER_RTC_H__
 
 #include "stm32f10x.h"
-#include "string.h"
-#include "stdio.h"
 #include "Driver_USART.h"
 
 void Driver_RTC_Init();
