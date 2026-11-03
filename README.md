@@ -24,3 +24,4 @@ STM32 微控制器習與實作範例，使用 STM32F103C8T6 與 Keil MDK ARM 開
 | 15 | Power Control | 使用 STM32 的電源管理功能，讓微控制器進入不同的低功耗模式 |
 | 16 | Backup Data | 使用 STM32 的備份功能，保留使用者的資料 |
 | 17 | Real Time Clock | 使用 RTC 每 5 秒喚醒微控制器，並輸出現在時間 |
+| 18 | Watchdog | 使用獨立看門狗監控程式狀態 |
